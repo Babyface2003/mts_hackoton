@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  vm-allocator:
+    build: ../mtd1
+    container_name: vm_allocator
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+    volumes:
+      - .:/app
+      - logs:/app/logs
+    environment:
+      - PYTHON UNBUFFERED=1
+    stdin_open: true
+    tty: true
+    command: sh -c "python main.py"
+
+volumes:
+  logs:
